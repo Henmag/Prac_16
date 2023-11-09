@@ -1,0 +1,84 @@
+﻿<Window x:Class="Prac_16.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Prac_16"
+        mc:Ignorable="d"
+        Title="Магазин книг" Height="800" Width="1200" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+
+    <!--Чтоб не подсвечивалось при наведении-->
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border Name="Border"
+                            Padding="2"
+                            SnapsToDevicePixels="true"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Transparent" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--1 Столбец-->
+        <Grid Grid.Column="0">
+            <ListView x:Name="List" Margin="10">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                        <!--<WrapPanel Orientation="Vertical" ItemHeight="70" />-->
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+            </ListView>
+        </Grid>
+
+        <!--2 Столбец-->
+        <Grid Grid.Column="1">
+            <Image x:Name="Imag" Height="400" Width="300" VerticalAlignment="Top" Margin="10"/>
+            <Label x:Name="title" FontSize="22" VerticalAlignment="Top" Margin="10,405,10,10"/>
+            <TextBlock x:Name="description" Height="170" Width="350" FontSize="22" VerticalAlignment="Top" Margin="20,440,10,20" TextWrapping="Wrap"/>
+            <Label Content="Цена" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,10,110"/>
+            <Label x:Name="price" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="80,0,10,110"/>
+
+            <Label Content="Количество" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,65"/>
+            <Button x:Name="minus" Content="-" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="150,0,0,65" Height="30" Width="30" BorderBrush="White" Background="White" Click="minus_Click"/>
+            <TextBox x:Name="amount" Width="100" Height="30" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="180,0,0,65" PreviewTextInput="amount_PreviewTextInput"/>
+            <Button x:Name="plus" Content="+" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="280,0,0,65" Height="30" Width="30" BorderBrush="White" Background="White" Click="plus_Click"/>
+
+            <Button x:Name="Confirm" Content="Оформить заказ" Height="40" Width="200" FontSize="22" VerticalAlignment="Bottom" Margin="10" BorderBrush="White" Background="White" Click="Confirm_Click"/>
+        </Grid>
+    </Grid>
+</Window>
+    
+
